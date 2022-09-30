@@ -1,0 +1,182 @@
+$transparentBlack: rgba(0, 0, 0, 0.479);
+$lightGreen: rgba(0, 0, 255, 0.427);
+$black: black;
+$blue: blue;
+$white: white;
+
+@mixin border {
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6); 
+}
+@mixin flex($type) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: $type;
+}
+@mixin button-click-effect {
+    border: none;
+    transition: transform 0.4s;
+    cursor: pointer;
+}
+
+html {
+    box-sizing: border-box;
+}
+*,*::after,*::before {
+    box-sizing: inherit;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+.todo-center{
+    max-width: 1200px;
+    padding: 1rem;
+    margin: 1rem auto;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1rem;
+    div{
+        @include border;
+        padding: 1rem;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        border-radius: 5px;
+
+        button {
+            @include button-click-effect;
+            margin-right: 0.3rem;
+            padding: 0.5rem;
+        }
+        button:hover {
+            transform: scale(1.1);
+        }
+        button:active {
+            transform: scale(0.5);
+        }
+    }
+
+}
+.modal {
+    background-color: $transparentBlack;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+.edit-area{
+    @include border;
+    @include flex(column nowrap);
+    border: 1px solid $black;
+    border-radius: 10px;
+    height: 50vh;
+    width: 70vw;
+    position: absolute;
+    top: calc((100vh - 50vh)/2);
+    left: calc((100vw - 70vw)/2);
+    padding: 1rem;
+    z-index: 1000;
+    background: $lightGreen;
+    textarea{
+        resize: none;
+        width: 90%;
+        height: 90%;
+        overflow-y: auto;
+        font-size: 1.2rem;
+    }
+    input {
+        @include button-click-effect;
+        width: 90%;
+        height: 8%;
+        border-radius: 5px;
+        font-size: 1.1rem;
+    }
+    input:hover {
+        transform: scale(1.1);
+    }
+    input:active {
+        transform: scale(0.5);
+    }
+}
+.create-todos{
+    @include flex(column nowrap);
+    width: 100vw;
+    height: 10vh;
+    gap: 5%; 
+ 
+    label{
+        width: 70%;
+        height: 55%;
+        input{
+            width: 100%;
+            height: 100%;
+            font-size: 2rem;
+        }
+    }
+    input[type="submit"]{
+        @include button-click-effect;
+        width: 70%;
+        height: 30%;
+        background: $blue;
+        color: $white;
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+    // input[type="submit"]:hover {
+    //     transform: scale(1.1);
+    // }
+    input[type="submit"]:active {
+        transform: scale(0.5);
+    }
+}
+.search-area {
+    @include flex(row nowrap);
+    padding: 0.5rem 0;
+    input{
+        width: 0%;
+        font-size: 2rem;
+        border-radius: 10px;
+        border: 1px solid rgba(34, 165, 150, 0.6);
+        opacity: 0;
+        transition: opacity 2s, width 2s;
+    }
+    div {
+        padding: 0 0 0  calc((100% - 60px)/2); //center align
+        margin: auto;
+        transition: padding 1.9s; //To center align while transitioning
+    }
+    button{
+        background: $blue url("./images/search.png");
+        background-position: center;
+        background-size: 35px 35px;
+        background-repeat: no-repeat;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 50%;
+        opacity: 1;
+        position: relative;
+        transition: opacity 1s;
+        width: 50px;
+        height: 50px;
+    }
+    button:hover{
+        background-color: rgb(1, 1, 191);
+        cursor: pointer;
+    }
+    button:active{
+        background-color: transparent;
+    }
+}
+//Animate searchBar
+.search-area:hover {
+    div{
+        padding: 0 0 0 calc((50% - 60px)/2);; //center align while input transition to different width
+    }
+    input{
+        opacity: 1;
+        width: 80%;
+    }
+    button{
+        opacity: 0;
+    }
+}
