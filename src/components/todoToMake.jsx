@@ -14,7 +14,7 @@ function NewTodo() {
     localStorage.setItem(_STORAGE, restLocalStorage);
   }, [todoList]);
 
-  function createNewTodo(e) {
+  async function createNewTodo(e) {
     e.preventDefault();
     dispatch(addTodo(state, todoList));
   }

@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeTodo, todoDone, todoEdited } from "../store/actions";
+import {
+  dataReceived,
+  removeTodo,
+  todoDone,
+  todoEdited,
+} from "../store/actions";
 import EditTodo from "./editTodo";
 
 function MakeTodos() {
@@ -8,6 +13,17 @@ function MakeTodos() {
   const dispatch = useDispatch();
   const [edit, setEdit] = useState(false);
   const [contentToEdit, setContentToEdit] = useState({ uuid: "", val: "" });
+
+  useEffect(() => {
+    const getDataFromApi = async () => {
+      const res = await fetch(`http://localhost:8080/getData`, {
+        method: "GET",
+      });
+      const data = await res.json();
+      dispatch(dataReceived(data));
+    };
+    getDataFromApi();
+  }, []); //eslint-disable-line
 
   function removeCurrentTodo(e) {
     const elemId = e.target.getAttribute("data-id");

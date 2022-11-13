@@ -2,7 +2,12 @@ function EditTodo({ submitEdittedContent, contentToEdit, setContentToEdit }) {
   return (
     <>
       <div className="modal"></div>
-      <form className="edit-area" onSubmit={submitEdittedContent}>
+      <form
+        action="edit"
+        method="get"
+        className="edit-area"
+        onSubmit={submitEdittedContent}
+      >
         <textarea
           value={contentToEdit.val}
           onChange={(event) =>

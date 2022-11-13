@@ -9,6 +9,12 @@ function avoidDuplicateTodos(todo, todoList) {
   return { todo, id: nanoid(), completed: false };
 }
 
+export const dataReceived = createAction(
+  "todos/receivedDataFromAPI",
+  (data) => {
+    return { payload: data };
+  }
+);
 export const addTodo = createAction("todos/add", (todo, todoList) => ({
   payload: avoidDuplicateTodos(todo, todoList),
 }));
